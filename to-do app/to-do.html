@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>To-Do List App</title>
+    <style>
+        body {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>To-Do List App</h1>
+    <input type="text" id="taskInput" placeholder="Enter task">
+    <button onclick="addTask()">Add Task</button>
+    <ul id="taskList"></ul>
+
+    <script>
+        var taskList = document.getElementById('taskList');
+
+        function addTask() {
+            var taskInput = document.getElementById('taskInput');
+            var taskText = taskInput.value;
+
+            if (taskText.trim() !== '') {
+                var taskItem = document.createElement('li');
+                taskItem.innerHTML = `
+                    <input type="checkbox" onclick="toggleTask(this)">
+                    <span>${taskText}</span>
+                    <button onclick="removeTask(this)">Remove</button>
+                `;
+                taskList.appendChild(taskItem);
+                taskInput.value = '';
+            }
+        }
+
+        function toggleTask(checkbox) {
+            var taskText = checkbox.nextElementSibling;
+            taskText.style.textDecoration = checkbox.checked ? 'line-through' : 'none';
+        }
+
+        function removeTask(button) {
+            var taskItem = button.parentNode;
+            taskList.removeChild(taskItem);
+        }
+    </script>
+</body>
+</html>
